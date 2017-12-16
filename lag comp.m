@@ -1,0 +1,23 @@
+den=[1 1 0];
+g=tf(10,den);
+figure(1);
+margin(g);
+[gm pm gf pf]=margin(g);
+e=10;
+phc=-180+40+e;
+w=logspace(-1,1,100);
+[mag,ph]=bode(g,w);
+ph=reshape(ph,100,1);
+mag=reshape(mag,100,1);
+wg2=interp1(ph,w,phc);
+beta=interp1(ph,mag,phc);
+wcu=wg2/8;
+tau=1/wcu;
+d=tf([tau 1],[beta*tau 1]);
+figure(2);
+margin(d);
+gcomp=g*d;
+figure(3);
+margin(gcomp);
+[gmc pmc gfc pfc]=margin(gcomp);
+
